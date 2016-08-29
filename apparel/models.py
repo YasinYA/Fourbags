@@ -16,6 +16,7 @@ class Item(models.Model):
     item_price = models.IntegerField(blank=False)
     item_color = models.CharField(max_length=100, blank=False)
     is_in_stock = models.BooleanField(default=False, blank=False)
+    description = models.TextField(blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -28,7 +29,7 @@ class Item(models.Model):
 class Size(models.Model):
 
     # Cloth Size choices all together (shirts and pants)
-    CLOTH_SIZE_CHOICES = (
+    SIZE_CHOICES = (
         ('S', "Small"),
         ('M', 'Medium'),
         ('L', "Large"),
@@ -41,9 +42,20 @@ class Size(models.Model):
         ('33', '33'),
         ('34', "34"),
         ('35', '35'),
+        # shoe size
+        ('36', "36"),
+        ('37', '37'),
+        ('38', "38"),
+        ('39', '39'),
+        ('40', "40"),
+        ('41', '41'),
+        ('42', "42"),
+        ('43', '43'),
+        ('44', "44"),
+        ('45', '45'),
     )
 
-    sizes = models.CharField(max_length=25, choices=CLOTH_SIZE_CHOICES, blank=False)
+    sizes = models.CharField(max_length=25, choices=SIZE_CHOICES, blank=False)
 
     def __str__(self):
         return "{}".format(self.sizes)
@@ -68,9 +80,23 @@ class Cloth(Item):
     )
 
     sizes = models.ManyToManyField(Size, related_name="cloth_sizes")
-    description = models.TextField(blank=False)
     category = models.CharField(max_length=200, choices=CLOTH_CATEGORY_CHOICES, default="Category", blank=False)
 
+class Shoe(Item):
+    SHOES_CATEGORY_CHOICES = (
+        ('SLIP-ONS', 'SLIP-ONS'),
+        ('HIGH TOPS', 'HIGH TOPS'),
+        ('LOW TOPS', 'LOW TOPS'),
+        ('SANDALS & FLIP FLOPS', 'SANDALS & FLIP FLOPS'),
+        ('SNEAKERS & PLIMSOLLS', 'SNEAKERS & PLIMSOLLS'),
+        ('FORMAL', 'FORMAL'),
+        ('SPORTS', 'SPORTS'),
+        ('BOOTS', 'BOOTS'),
+        ('BROGUES & DERBIES', 'BROGUES & DERBIES'),
+    )
+
+    sizes = models.ManyToManyField(Size, related_name="shoe_size")
+    category = models.CharField(max_length=200, choices=SHOES_CATEGORY_CHOICES, default="Category", blank=False)
 
 class ItemImage(models.Model):
     item_images = models.ForeignKey(Cloth, related_name="cloth_images", on_delete=models.CASCADE, blank=False)
