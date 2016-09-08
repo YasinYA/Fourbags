@@ -6,5 +6,5 @@ fourbags/settings.py
 static/maps
 
 # javascript dependencies
-static/lib
+static/lib/
 node_modules
