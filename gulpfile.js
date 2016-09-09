@@ -69,13 +69,6 @@ gulp.task('compass', function() {
 		.pipe(reload({stream:true}));
 });
 
-//////////////////////////////////////////////
-//	HTML Task
-/////////////////////////////////////////////
-gulp.task('html', function() {
-	gulp.src('app/**/*.html')
-	.pipe(reload({stream:true}));
-});
 
 //////////////////////////////////////////////
 //	Build Task
@@ -129,12 +122,11 @@ gulp.task('build', ['build:copy', 'build:remove']);
 //	Watch Task
 /////////////////////////////////////////////
 gulp.task('watch', function() {
-	gulp.watch('app/js/**/*.js', ['scripts']);
-	gulp.watch('app/scss/**/*.scss', ['compass']);
-	gulp.watch('app/**/*.html', ['html']);
+	gulp.watch('static/js/**/*.js', ['scripts']);
+	gulp.watch('static/scss/**/*.scss', ['compass']);
 });
 
 //////////////////////////////////////////////
 //	Defualt Task
 /////////////////////////////////////////////
-gulp.task('default', ['scripts', 'compass', 'html', 'watch']);
+gulp.task('default', ['scripts', 'compass', 'watch']);
