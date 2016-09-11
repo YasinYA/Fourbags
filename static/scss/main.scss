@@ -1,1 +1,48 @@
+body {
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+}
 
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+    .navbar-nav {
+        float: left;
+        margin: 0 254px;
+    }
+}
+
+.navbar.navbar-default {
+    background-color : transparent;
+    border: none;
+    padding: 15px 0;
+}
+
+a.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 0 15px;
+    font-size: 18px;
+    line-height: 20px;
+
+
+}
+
+.navbar-brand>img {
+    display: block;
+    width: 160px;
+    margin: 0 20px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+    font-size: 16px;
+
+    &:hover {
+        border-bottom: 1px solid #fff;
+    }
+}
