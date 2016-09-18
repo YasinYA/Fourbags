@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Size(models.Model):
     sizes = models.CharField(max_length=25)
 
@@ -19,7 +20,6 @@ class Item(models.Model):
     item_price = models.FloatField(blank=False)
     item_type = models.CharField(max_length=250, blank=False)
     item_color = models.CharField(max_length=100, blank=False)
-    item_image = models.URLField(max_length=1500, blank=False)
     is_in_stock = models.BooleanField(default=False, blank=False)
     description = models.TextField(blank=False)
     sizes = models.ManyToManyField(Size, related_name="shoe_size", blank=True)
@@ -28,3 +28,8 @@ class Item(models.Model):
 
     def __str__(self):
         return "{}-{}".format(self.item_brand, self.item_title)
+
+
+class ItemImage(models.Model):
+    itemImage = models.ForeignKey('Item', related_name="images", on_delete=models.CASCADE)
+    image = models.ImageField(blank=False)

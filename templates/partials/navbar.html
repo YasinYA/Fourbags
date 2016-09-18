@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -17,8 +17,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">Men <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Women </a></li>
+        <li><a href="{% url 'men_page_view' %}">Men <span class="sr-only">(current)</span></a></li>
+        <li><a href="{% url 'women_page_view' %}">Women </a></li>
         <li><a href="#">Computers </a></li>
         <li><a href="#">Mobiles </a></li>
         <li><a href="#">Accessories </a></li>

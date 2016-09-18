@@ -1,0 +1,27 @@
+{% extends "apparel/apparel_base.html" %}
+{% load staticfiles %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+            {% for item in men_items %}
+                <div class="col-md-4">
+                    <div class="item-wrapper well">
+                        <div class="item-image-wrapper text-center">
+                        {% for item_image in item.images.all %}
+                            <img src="{{item_image.image.url}}" alt="{{item.item_title}}" class="item-image img-responsive img-thumbnail">
+                        {% endfor %}
+                        </div>
+                        <div class="item-info">
+                            <a class="item-title text-center" href="{% url 'detail_page' item.pk %}"><h2>{{item.item_title}}</h2></a>
+                            <h3 class="item-brand text-center">{{item.item_brand}}</h3>
+                            <p class="item-desc">{{item.description|truncatewords:40}}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
