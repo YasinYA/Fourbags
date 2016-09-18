@@ -1,0 +1,43 @@
+.item-wrapper {
+    background: $item-wrapper-color;
+    border: 1px solid $item-wrapper-border-color;
+    border-radius: 10px;
+    height: 570px;
+    margin-bottom: 20px;
+
+
+    & .item-image-wrapper {
+        border-radius: 10px 10px 0 0;
+
+        & .item-image {
+            box-shadow: 0 0 5px grey;
+            width: 208px;
+            height: 300px;
+        }
+    }
+
+    & .item-info {
+
+        & .item-title {
+            text-decoration: none;
+
+            h2 {
+                color: $item-h2-font-color;
+                font-size: 18px;
+
+                &:hover {
+                    color: #607d8b;
+                }
+            }
+        }
+
+        & .item-brand {
+            font-size: 16px;
+
+        }
+
+        & .item-desc {
+            color: $item-description-font-color;
+        }
+    }
+}

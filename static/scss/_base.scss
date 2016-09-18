@@ -1,0 +1,88 @@
+h1 {
+    color: $all-h1-font-color;
+}
+
+body {
+    background-color: $body-background-color;
+}
+
+.container {
+    margin-top: 76px;
+}
+
+.navbar.navbar-default {
+    background-color : $navbar-color;
+    border: none;
+    border-radius: 0;
+    height: 70px;
+
+    @include phones {
+
+        .navbar-toggle {
+            margin-top: 18px;
+        }
+
+        .navbar-collapse {
+            background-color: $body-background-color;
+            border-color: $navbar-color;
+
+            &:hover {
+                border: none;
+            }
+        }
+    }
+}
+
+a.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 0 15px;
+    font-size: 18px;
+    line-height: 20px;
+    margin-top: 12px;
+
+    @include phones {
+        float: left;
+        height: 50px;
+        font-size: 18px;
+        line-height: 20px;
+        margin-top: 12px;
+    }
+}
+
+.navbar-brand>img {
+    display: block;
+    width: 160px;
+    margin: 0 20px;
+
+    @include phones {
+        margin: 0 15px;
+    }
+}
+
+.navbar-default .navbar-nav {
+    margin-top: 13px;
+    margin-left: 254px;
+
+    li>a {
+        color: $navbar-links-and-border-color;
+        font-size: 16px;
+        padding-bottom: 21px;
+
+        &:hover {
+            border-bottom: 1px solid $navbar-links-and-border-color;
+            color: $navbar-links-hover-state-color;
+        }
+
+        @include phones {
+            &:hover {
+                border-bottom: 1px solid $navbar-links-and-border-color;
+                color: $navbar-links-hover-state-color;
+            }
+        }
+    }
+
+    @include phones {
+        margin-left: 10px;
+    }
+}
