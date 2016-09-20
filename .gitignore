@@ -1,6 +1,7 @@
 db.sqlite3
 fourbags/settings.py
 
+media
 
 # source mappings
 static/maps
