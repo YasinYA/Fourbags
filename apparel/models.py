@@ -22,7 +22,7 @@ class Item(models.Model):
     item_color = models.CharField(max_length=100, blank=False)
     is_in_stock = models.BooleanField(default=False, blank=False)
     description = models.TextField(blank=False)
-    sizes = models.ManyToManyField(Size, related_name="shoe_size", blank=True)
+    sizes = models.ManyToManyField(Size, related_name="item_size", blank=True)
     category = models.CharField(max_length=200, default="Category", blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
 
@@ -33,3 +33,6 @@ class Item(models.Model):
 class ItemImage(models.Model):
     itemImage = models.ForeignKey('Item', related_name="images", on_delete=models.CASCADE)
     image = models.ImageField(blank=False)
+
+    def __str__(self):
+        return "{}".format(self.itemImage.item_title)
