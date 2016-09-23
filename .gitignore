@@ -9,3 +9,4 @@ static/maps
 # javascript dependencies
 static/lib/
 node_modules
+__pycache__
