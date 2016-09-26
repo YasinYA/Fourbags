@@ -50,6 +50,9 @@
     }
 
     & .image {
+        width: 208px;
+        height: 300px;
+
         @include phones {
             margin-bottom: 20px;
         }
@@ -72,5 +75,21 @@
         &:focus {
             box-shadow: 0 0 5px 3px #37474f;
         }
+    }
+
+    & .btn-local {
+        background: $body-background-color;
+        border: $one-pixel-border;
+        color: $item-h2-font-color;
+        margin-top: 20px;
+
+        &:hover {
+            background: $navbar-color;
+            color: $body-background-color;
+        }
+    }
+
+    & .sm-margin {
+        margin-top: $medium-top-margin;
     }
 }
