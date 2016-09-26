@@ -1,11 +1,6 @@
 // Colors
 $body-background-color: #263238;
 
-// Typography Colors
-$all-h1-font-color: #b0bec5;
-$item-h2-font-color: #b0bec5;
-$item-description-font-color: #222222;
-
 // Navbar Colors
 $navbar-color: #37474f;
 $navbar-links-and-border-color: #78909c;
@@ -15,8 +10,21 @@ $navbar-links-hover-state-color: #90a4ae;
 $item-wrapper-color: #455a64;
 $item-wrapper-border-color: #37474f;
 
-
 // Media Queries
 $phones: 300px;
 $tablets: 768px;
 $desktops: 1024px;
+
+// Typography Colors
+$all-h1-font-color: #b0bec5;
+$item-h2-font-color: #b0bec5;
+$item-description-font-color: #222222;
+
+// Border
+$one-pixel-border: 1px solid $item-wrapper-border-color;
+
+
+// Margins
+$small-top-margin: 10px;
+$medium-top-margin: 20px;
+$high-top-margin: 30px;

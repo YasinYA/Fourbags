@@ -1,17 +1,46 @@
 {% extends "apparel/apparel_base.html" %}
-
+{% load filters %}
 {% block content %}
-    <div class="well">
+    <div class="details well">
         <div class="row">
             <div class="col-md-4 pull-left">
                 {% for item_image in item.images.all %}
-                    <img src="{{item_image.image.url}}" alt="{{item.item_title}}" class="item-image img-responsive img-thumbnail">
+                    <img src="{{item_image.image.url}}" alt="{{item.item_title}}" class="image img-responsive img-thumbnail">
                 {% endfor %}
             </div>
             <div class="col-md-8">
                 <h3>{{object.item_title}}</h3>
                 <h4>{{object.item_brand}}</h4>
                 <p>{{object.description}}</p>
+
+                <div class="row sm-margin">
+                    <div class="col-md-4 col-sm-2 col-xs-4">
+                        {% if object.is_in_stock %}
+                            <p class="available text-center"> Available </p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 col-sm-2 col-xs-4">
+                        <p class="text-center price">{{object.item_price | add_ringgit_sign}}</p>
+                    </div>
+                    <div class="col-md-4 col-sm-2 col-xs-4">
+                        {% if object.sizes.all %}
+                            <select name="size" class="form-control sizes">
+                                <option value="Sizes">Sizes</option>
+                            {% for item_size in object.sizes.all  %}
+                                <option value="item_size.sizes">{{item_size.sizes}}</option>
+                            {% endfor %}
+                            </select>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <button type="button" class="btn btn-primary btn-block btn-local"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; Add to Bags</button>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <button type="button" class="btn btn-primary btn-block btn-local"><i class="fa fa-heart-o" aria-hidden="true"></i> &nbsp; Favourite</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

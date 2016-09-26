@@ -1,6 +1,6 @@
 .item-wrapper {
     background: $item-wrapper-color;
-    border: 1px solid $item-wrapper-border-color;
+    border: $one-pixel-border;
     border-radius: 10px;
     height: 570px;
     margin-bottom: 20px;
@@ -33,11 +33,63 @@
 
         & .item-brand {
             font-size: 16px;
-
         }
 
         & .item-desc {
             color: $item-description-font-color;
         }
+    }
+}
+
+.details {
+    background: $item-wrapper-color;
+    border: $one-pixel-border;
+
+    h3 {
+        color: $item-h2-font-color;
+    }
+
+    & .image {
+        width: 208px;
+        height: 300px;
+
+        @include phones {
+            margin-bottom: 20px;
+        }
+    }
+
+    & .available {
+        margin-top: 7px;
+    }
+
+    & .price {
+        margin-top: 7px;
+    }
+
+    & .sizes {
+        background: $body-background-color;
+        color: $item-h2-font-color;
+        border: none;
+        outline: none;
+
+        &:focus {
+            box-shadow: 0 0 5px 3px #37474f;
+        }
+    }
+
+    & .btn-local {
+        background: $body-background-color;
+        border: $one-pixel-border;
+        color: $item-h2-font-color;
+        margin-top: 20px;
+
+        &:hover {
+            background: $navbar-color;
+            color: $body-background-color;
+        }
+    }
+
+    & .sm-margin {
+        margin-top: $medium-top-margin;
     }
 }
