@@ -1,8 +1,9 @@
 {% extends "apparel/apparel_base.html" %}
 {% load filters %}
 {% block content %}
-    <div class="container">
-        <div class="details well">
+    <h1>Ordering Form</h1>
+    <div class="container md-margin-bottom" ng-app="FourBags" ng-controller="OrderController">
+        <div class="details well sm-margin-bottom">
             <div class="row">
                 <div class="col-md-4 pull-left">
                     {% for item_image in item.item_images %}
@@ -37,5 +38,99 @@
                 </div>
             </div>
         </div>
+        <form name="ordering_form" novalidate ng-submit="sendOrder()">
+            <div class="row sm-margin-bottom">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                              <input type="text" class="form-control" name="first_name" ng-model="customer.first_name" placeholder="First Name" required>
+                            </div>
+                        </div>
+                        <div>
+                            <span ng-show="ordering_form.first_name.$dirty && ordering_form.first_name.$error.required" class="text-danger">This field is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                              <input type="text" class="form-control" name="last_name" ng-model="customer.last_name" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                        <div>
+                            <span ng-show="ordering_form.last_name.$dirty && ordering_form.last_name.$error.required" class="text-danger">This field is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon"><i class="fa fa-phone-square" aria-hidden="true"></i></div>
+                              <input type="text" class="form-control" name="phone" ng-model="customer.phone" placeholder="Phone" required>
+                            </div>
+                        </div>
+                        <div>
+                            <span ng-show="ordering_form.phone.$dirty && ordering_form.phone.$error.required" class="text-danger">This field is required</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                              <input type="email" class="form-control" name="email" ng-model="customer.email" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div>
+                            <span ng-show="ordering_form.email.$dirty && ordering_form.email.$error.required" class="text-danger">This field is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                              <input type="text" class="form-control" name="address" ng-model="customer.address" placeholder="Address" required>
+                            </div>
+                        </div>
+                        <div>
+                            <span ng-show="ordering_form.address.$dirty && ordering_form.address.$error.required" class="text-danger">This field is requiredd</span>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon"><i class="fa fa-cubes" aria-hidden="true"></i></div>
+                              <input type="number" class="form-control" name="quantity" ng-model="customer.item_quantity" placeholder="Quantity" required>
+                            </div>
+                        </div>
+                        <div>
+                            <span ng-show="ordering_form.quantity.$dirty && ordering_form.quantity.$error.required" class="text-danger">This field is required</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row sm-margin-bottom">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span ng-show="ordering_form.cash_on_delivery.$dirty && ordering_form.cash_on_delivery.$error.required || ordering_form.paybal.$dirty && ordering_form.paybal.$error.required" class="text-danger">Choose Payment Method</span>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <label class="radio-inline">
+                      <input type="radio" name="cash_on_delivery" value="true" ng-model="customer.cash_on_delivery" ng-click="customer.paybal = false" required> <span class="white-text">Cash on delivery</span>
+                    </label>
+                </div>
+                <div class="col-md-6 text-center">
+                    <label class="radio-inline">
+                      <input type="radio" name="paybal" value="true" ng-model="customer.paybal" ng-click="customer.cash_on_delivery = false" required> <span class="white-text">Paybal</span>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button type="submit" ng-disabled="ordering_form.$invalid" class="btn btn-block btn-lg btn-local-second">Signup</button>
+                </div>
+            </div>
+        </form>
     </div>
 {% endblock %}
