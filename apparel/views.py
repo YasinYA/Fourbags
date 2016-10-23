@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import View, TemplateView, ListView, DetailView
 from .models  import Item
 
 
@@ -31,3 +31,18 @@ class DetailPageView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(DetailPageView, self).get_context_data(*args, **kwargs)
         return context
+
+
+class ItemOrderView(TemplateView):
+    template_name = 'apparel/ordering_form.html'
+    context_object_name = 'item'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ItemOrderView, self).get_context_data(*args, **kwargs)
+        context['item'] = Item.objects.get(pk=kwargs['pk']).serialize()
+        return context
+
+
+class OrderView(View):
+
+    pass

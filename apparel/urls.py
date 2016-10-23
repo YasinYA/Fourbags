@@ -6,4 +6,6 @@ urlpatterns = [
     url(r'^men/$', views.MenPageView.as_view(), name="men_page_view"),
     url(r'^women/$', views.WomenPageView.as_view(), name="women_page_view"),
     url(r'^(?P<pk>\d+)/$', views.DetailPageView.as_view(), name="detail_page"),
+    url(r'^addtobag/(?P<pk>\d+)/$', views.ItemOrderView.as_view(), name="order_page"),
+    url(r'^order/$', views.OrderView.as_view(), name="order"),
 ]
