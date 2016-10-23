@@ -1,0 +1,41 @@
+{% extends "apparel/apparel_base.html" %}
+{% load filters %}
+{% block content %}
+    <div class="container">
+        <div class="details well">
+            <div class="row">
+                <div class="col-md-4 pull-left">
+                    {% for item_image in item.item_images %}
+                        <img src="{{item_image.url}}" alt="{{item.item_title}}" class="image img-responsive img-thumbnail">
+                    {% endfor %}
+                </div>
+                <div class="col-md-8">
+                    <h3>{{item.item_title}}</h3>
+                    <h4>{{item.item_brand}}</h4>
+                    <p>{{item.description}}</p>
+
+                    <div class="row sm-margin">
+                        <div class="col-md-4 col-sm-2 col-xs-4">
+                            {% if item.is_in_stock %}
+                                <p class="available text-center"> Available </p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 col-sm-2 col-xs-4">
+                            <p class="text-center price">{{item.item_price | add_ringgit_sign}}</p>
+                        </div>
+                        <div class="col-md-4 col-sm-2 col-xs-4">
+                            {% if item.sizes %}
+                                <select name="size" class="form-control sizes">
+                                    <option value="Sizes">Sizes</option>
+                                {% for item_size in item.sizes  %}
+                                    <option value="item_size">{{item_size}}</option>
+                                {% endfor %}
+                                </select>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
