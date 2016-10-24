@@ -1,5 +1,7 @@
 from django.views.generic import View, TemplateView, ListView, DetailView
-from .models  import Item
+from django.http  import JsonResponse
+import json
+from .models  import Item, Order
 
 
 class HomeView(TemplateView):
@@ -45,4 +47,34 @@ class ItemOrderView(TemplateView):
 
 class OrderView(View):
 
-    pass
+    def post(self, request):
+        # get the data from request body cos angular sends the data in the request body
+        # which django doesn't bother to look at
+        # since request body is a byte format try to serialize
+        data = json.loads(request.body.decode('utf-8'))
+        item = data['item']
+
+        # get if data has item property
+        if item:
+            # check if that item exists (double checking)
+            try:
+                ordered_item = Item.objects.get(pk=item.get('id', ''))
+            except Item.DoesNotExist:
+                HttpResponse(status=404)
+            else:
+                # Finally create order object
+                Order.objects.create(
+                    item=ordered_item,
+                    first_name=data['first_name'],
+                    last_name=data['last_name'],
+                    phone=data['phone'],
+                    email=data['email'],
+                    address=data['address'],
+                    quantity=data['item_quantity'],
+                    paybal=data['paybal'],
+                    cash_on_delivery=data['cash_on_delivery']
+                )
+
+        return JsonResponse({
+            "success": True
+        })
