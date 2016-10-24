@@ -31,6 +31,7 @@ class Item(models.Model):
 
     def serialize(self):
         as_dict = {
+            "id": self.pk,
             "item_title": self.item_title,
             "item_brand": self.item_brand,
             "gender": self.gender,
@@ -39,7 +40,7 @@ class Item(models.Model):
             "description": self.description,
             "sizes": [s.sizes for s in self.sizes.all()],
             "category": self.category,
-            "item_images": [image.image for image in self.images.all()],
+            "item_images": [image.image.url for image in self.images.all()],
         }
 
         return as_dict
@@ -66,7 +67,7 @@ class Order(models.Model):
     paybal = models.BooleanField(default=False, blank=False)
 
     def __str__(self):
-        return '{} - {}'.format(self.item.item_title)
+        return '{} - {}'.format(self.item.item_title, self.item.item_brand)
 
     def serialize(self):
         as_dict = {

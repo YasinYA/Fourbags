@@ -1,13 +1,27 @@
 {% extends "apparel/apparel_base.html" %}
-{% load filters %}
+{% load filters argonauts %}
+
+{% block head %}
+{{block.super}}
+<script>
+    window.item = {{item|json}};
+</script>
+{% endblock head %}
 {% block content %}
-    <h1>Ordering Form</h1>
+    <h1>{$ successMessage $}</h1>
     <div class="container md-margin-bottom" ng-app="FourBags" ng-controller="OrderController">
+        <div class="contianer" ng-show="sucessfull === true">
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <p>{$ successMessage $}</p>
+            </div>
+        </div>
+        <h1>Ordering Form</h1>
         <div class="details well sm-margin-bottom">
             <div class="row">
                 <div class="col-md-4 pull-left">
                     {% for item_image in item.item_images %}
-                        <img src="{{item_image.url}}" alt="{{item.item_title}}" class="image img-responsive img-thumbnail">
+                        <img src="{{item_image}}" alt="{{item.item_title}}" class="image img-responsive img-thumbnail">
                     {% endfor %}
                 </div>
                 <div class="col-md-8">
@@ -39,6 +53,7 @@
             </div>
         </div>
         <form name="ordering_form" novalidate ng-submit="sendOrder()">
+            {{csrf_token}}
             <div class="row sm-margin-bottom">
                 <div class="col-md-6">
                     <div class="form-group">

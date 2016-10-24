@@ -1,6 +1,15 @@
 angular.module('FourBags')
-    .controller('OrderController', ['$scope', function($scope){
+    .controller('OrderController', ['$scope', 'OrderService', function($scope, OrderService){
         $scope.sendOrder = function() {
-            console.log($scope.customer);
+            $scope.customer.item = window.item;
+
+            // Post order detials
+            result = OrderService.sentItemOrder($scope.customer);
+            result.then(function(res){
+                if(res.data.success) {
+                    $scope.sucessfull = true;
+                    $scope.successMessage = "Your Order is Sucessfull";
+                }
+            });
         };
     }]);
