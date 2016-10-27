@@ -29,6 +29,23 @@ class Item(models.Model):
     def __str__(self):
         return "{}-{}".format(self.item_brand, self.item_title)
 
+    def serialize(self):
+        as_dict = {
+            "id": self.pk,
+            "item_title": self.item_title,
+            "item_brand": self.item_brand,
+            "gender": self.gender,
+            "item_price": self.item_price,
+            "is_in_stock": self.is_in_stock,
+            "description": self.description,
+            "sizes": [s.sizes for s in self.sizes.all()],
+            "category": self.category,
+            "item_images": [image.image.url for image in self.images.all()],
+        }
+
+        return as_dict
+
+
 
 class ItemImage(models.Model):
     itemImage = models.ForeignKey('Item', related_name="images", on_delete=models.CASCADE)
@@ -36,3 +53,32 @@ class ItemImage(models.Model):
 
     def __str__(self):
         return "{}".format(self.itemImage.item_title)
+
+
+class Order(models.Model):
+    item = models.ForeignKey('Item', related_name='ordered_item', on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50, blank=False)
+    last_name = models.CharField(max_length=50, blank=False)
+    phone = models.CharField(max_length=50, blank=False)
+    email = models.CharField(max_length=200, blank=False)
+    address = models.CharField(max_length=200, blank=False)
+    quantity = models.IntegerField(blank=False)
+    cash_on_delivery = models.BooleanField(default=False, blank=False)
+    paypal = models.BooleanField(default=False, blank=False)
+
+    def __str__(self):
+        return '{} - {}'.format(self.item.item_title, self.item.item_brand)
+
+    def serialize(self):
+        as_dict = {
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "phone": self.phone,
+            "email": self.email,
+            "address": self.address,
+            "quantity": self.quantity,
+            "cash_on_delivery": self.cash_on_delivery,
+            "paypal": self.paypal
+        }
+
+        return as_dict

@@ -1,5 +1,7 @@
-from django.views.generic import TemplateView, ListView, DetailView
-from .models  import Item
+from django.views.generic import View, TemplateView, ListView, DetailView
+from django.http  import JsonResponse
+import json
+from .models  import Item, Order
 
 
 class HomeView(TemplateView):
@@ -31,3 +33,48 @@ class DetailPageView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(DetailPageView, self).get_context_data(*args, **kwargs)
         return context
+
+
+class ItemOrderView(TemplateView):
+    template_name = 'apparel/ordering_form.html'
+    context_object_name = 'item'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ItemOrderView, self).get_context_data(*args, **kwargs)
+        context['item'] = Item.objects.get(pk=kwargs['pk']).serialize()
+        return context
+
+
+class OrderView(View):
+
+    def post(self, request):
+        # get the data from request body cos angular sends the data in the request body
+        # which django doesn't bother to look at
+        # since request body is a byte format try to serialize
+        data = json.loads(request.body.decode('utf-8'))
+        item = data.get('item', '')
+
+        # get if data has item property
+        if item:
+            # check if that item exists (double checking)
+            try:
+                ordered_item = Item.objects.get(pk=item.get('id', ''))
+            except Item.DoesNotExist:
+                HttpResponse(status=404)
+            else:
+                # Finally create order object
+                Order.objects.create(
+                    item=ordered_item,
+                    first_name=data.get('first_name', ''),
+                    last_name=data.get('last_name', ''),
+                    phone=data.get('phone', ''),
+                    email=data.get('email', ''),
+                    address=data.get('address', ''),
+                    quantity=data.get('item_quantity', ''),
+                    paypal=data.get('paypal', ''),
+                    cash_on_delivery=data.get('cash_on_delivery', '')
+                )
+
+        return JsonResponse({
+            "success": True
+        })

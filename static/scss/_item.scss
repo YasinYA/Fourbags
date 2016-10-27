@@ -77,18 +77,6 @@
         }
     }
 
-    & .btn-local {
-        background: $body-background-color;
-        border: $one-pixel-border;
-        color: $item-h2-font-color;
-        margin-top: 20px;
-
-        &:hover {
-            background: $navbar-color;
-            color: $body-background-color;
-        }
-    }
-
     & .sm-margin {
         margin-top: $medium-top-margin;
     }

@@ -35,7 +35,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-6">
-                        <button type="button" class="btn btn-primary btn-block btn-local"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; Add to Bags</button>
+                        <a type="button" href="{% url 'order_page' item.pk %}" class="btn btn-primary btn-block btn-local"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; Add to Bags</a>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6">
                         <button type="button" class="btn btn-primary btn-block btn-local"><i class="fa fa-heart-o" aria-hidden="true"></i> &nbsp; Favourite</button>
