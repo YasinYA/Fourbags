@@ -127,17 +127,17 @@
             <div class="row sm-margin-bottom">
                 <div class="row">
                     <div class="col-md-12">
-                        <span ng-show="ordering_form.cash_on_delivery.$dirty && ordering_form.cash_on_delivery.$error.required || ordering_form.paybal.$dirty && ordering_form.paybal.$error.required" class="text-danger">Choose Payment Method</span>
+                        <span ng-show="ordering_form.cash_on_delivery.$dirty && ordering_form.cash_on_delivery.$error.required || ordering_form.paypal.$dirty && ordering_form.paypal.$error.required" class="text-danger">Choose Payment Method</span>
                     </div>
                 </div>
                 <div class="col-md-6 text-center">
                     <label class="radio-inline">
-                      <input type="radio" name="cash_on_delivery" value="true" ng-model="customer.cash_on_delivery" ng-click="customer.paybal = false" required> <span class="white-text">Cash on delivery</span>
+                      <input type="radio" name="cash_on_delivery" value="true" ng-model="customer.cash_on_delivery" ng-click="customer.paypal = false" required> <span class="white-text">Cash on delivery</span>
                     </label>
                 </div>
                 <div class="col-md-6 text-center">
                     <label class="radio-inline">
-                      <input type="radio" name="paybal" value="true" ng-model="customer.paybal" ng-click="customer.cash_on_delivery = false" required> <span class="white-text">Paybal</span>
+                      <input type="radio" name="paypal" value="true" ng-model="customer.paypal" ng-click="customer.cash_on_delivery = false" required> <span class="white-text">Paypal</span>
                     </label>
                 </div>
             </div>
