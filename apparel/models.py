@@ -64,7 +64,7 @@ class Order(models.Model):
     address = models.CharField(max_length=200, blank=False)
     quantity = models.IntegerField(blank=False)
     cash_on_delivery = models.BooleanField(default=False, blank=False)
-    paybal = models.BooleanField(default=False, blank=False)
+    paypal = models.BooleanField(default=False, blank=False)
 
     def __str__(self):
         return '{} - {}'.format(self.item.item_title, self.item.item_brand)
@@ -78,7 +78,7 @@ class Order(models.Model):
             "address": self.address,
             "quantity": self.quantity,
             "cash_on_delivery": self.cash_on_delivery,
-            "paybal": self.paybal
+            "paypal": self.paypal
         }
 
         return as_dict

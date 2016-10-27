@@ -52,7 +52,7 @@ class OrderView(View):
         # which django doesn't bother to look at
         # since request body is a byte format try to serialize
         data = json.loads(request.body.decode('utf-8'))
-        item = data['item']
+        item = data.get('item', '')
 
         # get if data has item property
         if item:
@@ -65,14 +65,14 @@ class OrderView(View):
                 # Finally create order object
                 Order.objects.create(
                     item=ordered_item,
-                    first_name=data['first_name'],
-                    last_name=data['last_name'],
-                    phone=data['phone'],
-                    email=data['email'],
-                    address=data['address'],
-                    quantity=data['item_quantity'],
-                    paybal=data['paybal'],
-                    cash_on_delivery=data['cash_on_delivery']
+                    first_name=data.get('first_name', ''),
+                    last_name=data.get('last_name', ''),
+                    phone=data.get('phone', ''),
+                    email=data.get('email', ''),
+                    address=data.get('address', ''),
+                    quantity=data.get('item_quantity', ''),
+                    paypal=data.get('paypal', ''),
+                    cash_on_delivery=data.get('cash_on_delivery', '')
                 )
 
         return JsonResponse({
