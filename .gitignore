@@ -1,5 +1,6 @@
 db.sqlite3
 fourbags/settings.py
+fourbags/email_config.py
 
 media
 

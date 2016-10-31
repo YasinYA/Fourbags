@@ -1,8 +1,11 @@
+import json
+
+from django.conf import settings
 from django.views.generic import View, TemplateView, ListView, DetailView
 from django.http  import JsonResponse
-import json
-from .models  import Item, Order
 
+from .models  import Item, Order
+from utils.email import send_email
 
 class HomeView(TemplateView):
     template_name = 'apparel/apparel_base.html'
@@ -54,6 +57,22 @@ class OrderView(View):
         data = json.loads(request.body.decode('utf-8'))
         item = data.get('item', '')
 
+        #  TODO: validate the email using django validation
+        # check if there is email
+        if data.get('email', ''):
+            email_template = 'apparel/email/order_email.html'
+            email_subject = "Fourbags"
+            ctx = {
+                "item": item,
+                "firstname": data.get('first_name', ''),
+                "lastname": data.get('last_name', ''),
+                "phone": data.get('phone', ''),
+                "address": data.get('address', ''),
+                "quantity": data.get('item_quantity', ''),
+            }
+            to_email = data.get('email')
+            from_email = settings.EMAIL_HOST_USER
+
         # get if data has item property
         if item:
             # check if that item exists (double checking)
@@ -74,7 +93,8 @@ class OrderView(View):
                     paypal=data.get('paypal', ''),
                     cash_on_delivery=data.get('cash_on_delivery', '')
                 )
-
+                # send the mail
+                send_email(email_subject, email_template, ctx, to_email, from_email)
         return JsonResponse({
             "success": True
         })
