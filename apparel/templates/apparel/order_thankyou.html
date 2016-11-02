@@ -1,0 +1,27 @@
+{% extends "apparel/apparel_base.html" %}
+{% load filters argonauts %}
+
+{% block head %}
+{{block.super}}
+<script>
+    window.item = {{item|json}};
+</script>
+{% endblock head %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 white-text">
+                <h1>Thank you for ordering , come agian</h1>
+                <p>You have order this item:</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>{{ item.item_title }}</p>
+                        <p>{{ item.item_brand }}</p>
+                        <p> {{ item.item_price | add_ringgit_sign }}</p>
+                        <p> {{ item.description }} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

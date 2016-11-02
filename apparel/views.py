@@ -98,3 +98,12 @@ class OrderView(View):
         return JsonResponse({
             "success": True
         })
+
+
+class OrderThankyouView(TemplateView):
+    template_name = 'apparel/order_thankyou.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderThankyouView, self).get_context_data(**kwargs)
+        context['item'] = Item.objects.get(pk=kwargs['pk']).serialize()
+        return context
