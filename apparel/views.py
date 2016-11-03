@@ -2,7 +2,7 @@ import json
 
 from django.conf import settings
 from django.views.generic import View, TemplateView, ListView, DetailView
-from django.http  import JsonResponse
+from django.http  import JsonResponse, HttpResponse
 
 from .models  import Item, Order
 from utils.email import send_email
@@ -57,6 +57,10 @@ class OrderView(View):
         data = json.loads(request.body.decode('utf-8'))
         item = data.get('item', '')
 
+        # check if quantity is sent with the data and it is greater then 0
+        if  not data.get('item_quantity') and data['item_quantity'] <= 0:
+            return HttpResponse(status=404)
+
         #  TODO: validate the email using django validation
         # check if there is email
         if data.get('email', ''):
@@ -68,10 +72,11 @@ class OrderView(View):
                 "lastname": data.get('last_name', ''),
                 "phone": data.get('phone', ''),
                 "address": data.get('address', ''),
-                "quantity": data.get('item_quantity', ''),
+                "quantity": data['item_quantity'],
             }
             to_email = data.get('email')
             from_email = settings.EMAIL_HOST_USER
+
 
         # get if data has item property
         if item:
@@ -79,7 +84,7 @@ class OrderView(View):
             try:
                 ordered_item = Item.objects.get(pk=item.get('id', ''))
             except Item.DoesNotExist:
-                HttpResponse(status=404)
+                return HttpResponse(status=404)
             else:
                 # Finally create order object
                 Order.objects.create(
@@ -89,10 +94,11 @@ class OrderView(View):
                     phone=data.get('phone', ''),
                     email=data.get('email', ''),
                     address=data.get('address', ''),
-                    quantity=data.get('item_quantity', ''),
-                    paypal=data.get('paypal', ''),
-                    cash_on_delivery=data.get('cash_on_delivery', '')
+                    quantity=data['item_quantity'],
+                    paypal=data.get('paypal', False),
+                    cash_on_delivery=data.get('cash_on_delivery', True)
                 )
+
                 # send the mail
                 send_email(email_subject, email_template, ctx, to_email, from_email)
         return JsonResponse({
