@@ -60,7 +60,7 @@ class Order(models.Model):
     first_name = models.CharField(max_length=50, blank=False)
     last_name = models.CharField(max_length=50, blank=False)
     phone = models.CharField(max_length=50, blank=False)
-    email = models.CharField(max_length=200, blank=False)
+    email = models.EmailField(max_length=254, blank=False)
     address = models.CharField(max_length=200, blank=False)
     quantity = models.IntegerField(blank=False)
     cash_on_delivery = models.BooleanField(default=False, blank=False)

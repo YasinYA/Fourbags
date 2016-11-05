@@ -1,5 +1,11 @@
 <p> Dear <strong>{{ firstname }} {{ lastname }}</strong></p>
 
-<p>you ordered <strong>{{item.item_title }} - {{ item.item_brand }}</strong> your order will come to this address <strong>{{ address }}</strong></p>
+<p><strong>You ordered: {{item.item_title }} - {{ item.item_brand }}</strong></p>
+<p><strong>Price: {{ item.item_price }} RM</strong></p>
+<p><strong>Address: {{ address }}</strong></p>
+<p><strong>Quantity: {{ quantity }}</strong></p>
+<p><strong>Payment Method: {{ payment_method }}</strong></p>
 
-<p>thanks you come again</p>
+<p>This phone (<strong>{{ phone }}</strong>) will be called when our carrier reach your address</p>
+
+<p>thank you come again</p>
