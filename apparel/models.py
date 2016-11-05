@@ -55,13 +55,22 @@ class ItemImage(models.Model):
         return "{}".format(self.itemImage.item_title)
 
 
-class Order(models.Model):
-    item = models.ForeignKey('Item', related_name='ordered_item', on_delete=models.CASCADE)
+class Customer(models.Model):
     first_name = models.CharField(max_length=50, blank=False)
     last_name = models.CharField(max_length=50, blank=False)
     phone = models.CharField(max_length=50, blank=False)
-    email = models.CharField(max_length=200, blank=False)
+    email = models.EmailField(max_length=254, blank=False)
     address = models.CharField(max_length=200, blank=False)
+
+    def __str__(self):
+        return '{} {}'.format(self.first_name, self.last_name)
+
+
+class Order(models.Model):
+    item = models.ForeignKey('Item', related_name='ordered_item', on_delete=models.CASCADE)
+    buyer = models.ForeignKey('Customer', related_name="purchaser", on_delete=models.CASCADE)
+    when = models.DateTimeField(auto_now_add=True)
+    is_new_buyer = models.BooleanField(default=True, blank=True)
     quantity = models.IntegerField(blank=False)
     cash_on_delivery = models.BooleanField(default=False, blank=False)
     paypal = models.BooleanField(default=False, blank=False)
