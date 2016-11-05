@@ -4,7 +4,7 @@ from django.conf import settings
 from django.views.generic import View, TemplateView, ListView, DetailView
 from django.http  import JsonResponse, HttpResponse
 
-from .models  import Item, Order
+from .models  import Item, Customer, Order
 from utils.email import send_email
 
 class HomeView(TemplateView):
@@ -53,7 +53,7 @@ class OrderView(View):
     def post(self, request):
         # get the data from request body cos angular sends the data in the request body
         # which django doesn't bother to look at
-        # since request body is a byte format try to serialize
+        # since request body is a byte format convert it to json
         data = json.loads(request.body.decode('utf-8'))
         item = data.get('item', '')
 
@@ -77,7 +77,7 @@ class OrderView(View):
         if data.get('email', ''):
             payment_method = ''
 
-            # check the payment method and set it's value for the email
+            # check type of payment method and set it's value for the email
             # checking 'true' is bugging me though
             if data['paypal'] == 'true':
                 payment_method = 'Paypal'
@@ -98,23 +98,32 @@ class OrderView(View):
             to_email = data.get('email')
             from_email = settings.EMAIL_HOST_USER
 
-
-        # get if post data has item property
         if item:
             # check if that item exists (double checking)
             try:
                 ordered_item = Item.objects.get(pk=item.get('id', ''))
             except Item.DoesNotExist:
                 return HttpResponse(status=404)
-            else:
-                # Finally create order object
-                Order.objects.create(
-                    item=ordered_item,
+
+            try:
+                # get if the customer exists or create it
+                buyer, created = Customer.objects.get_or_create(
                     first_name=data.get('first_name', ''),
                     last_name=data.get('last_name', ''),
                     phone=data.get('phone', ''),
                     email=data.get('email', ''),
                     address=data.get('address', ''),
+                )
+            except MultipleObjectsReturned:
+                # will handle this cases later
+                # but for now just return 500
+                return HttpResponse(status=404)
+            else:
+                # Finally create order object
+                Order.objects.create(
+                    item=ordered_item,
+                    buyer = buyer,
+                    is_new_buyer = created,
                     quantity=data['item_quantity'],
                     paypal=data['paypal'],
                     cash_on_delivery=data['cash_on_delivery']
