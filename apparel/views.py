@@ -58,12 +58,32 @@ class OrderView(View):
         item = data.get('item', '')
 
         # check if quantity is sent with the data and it is greater then 0
-        if  not data.get('item_quantity') and data['item_quantity'] <= 0:
-            return HttpResponse(status=404)
+        if  data.get('item_quantity') is None and data['item_quantity'] <= 0:
+            return HttpResponse(status=500)
+
+        # check if payment method is via Paypal and set Cash On Delivery to false
+        if data.get('cash_on_delivery') is None and data.get('paypal') == 'true':
+            data['cash_on_delivery'] = False
+
+        # check if payment method is via Cash On Delivery and set Paypal to false
+        if data.get('paypal') is None and data.get('cash_on_delivery') == 'true':
+            data['paypal'] = False
+
+        if data.get('paybal') is None and data.get('cash_on_delivery') is None:
+            return HttpResponse(status=500)
 
         #  TODO: validate the email using django validation
         # check if there is email
         if data.get('email', ''):
+            payment_method = ''
+
+            # check the payment method and set it's value for the email
+            # checking 'true' is bugging me though
+            if data['paypal'] == 'true':
+                payment_method = 'Paypal'
+            if data['cash_on_delivery'] == 'true':
+                payment_method = 'Cash on Delivery'
+
             email_template = 'apparel/email/order_email.html'
             email_subject = "Fourbags"
             ctx = {
@@ -73,12 +93,13 @@ class OrderView(View):
                 "phone": data.get('phone', ''),
                 "address": data.get('address', ''),
                 "quantity": data['item_quantity'],
+                "payment_method": payment_method
             }
             to_email = data.get('email')
             from_email = settings.EMAIL_HOST_USER
 
 
-        # get if data has item property
+        # get if post data has item property
         if item:
             # check if that item exists (double checking)
             try:
@@ -95,12 +116,13 @@ class OrderView(View):
                     email=data.get('email', ''),
                     address=data.get('address', ''),
                     quantity=data['item_quantity'],
-                    paypal=data.get('paypal', False),
-                    cash_on_delivery=data.get('cash_on_delivery', True)
+                    paypal=data['paypal'],
+                    cash_on_delivery=data['cash_on_delivery']
                 )
 
                 # send the mail
                 send_email(email_subject, email_template, ctx, to_email, from_email)
+
         return JsonResponse({
             "success": True
         })
