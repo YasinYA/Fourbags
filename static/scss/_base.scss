@@ -1,19 +1,21 @@
-h1 {
-    color: $all-h1-font-color;
-}
-
 body {
-    background-color: $body-background-color;
+    background: white;
+    font-family: $bodyFont;
 }
 
 .container {
     margin-top: 76px;
 }
 
+.navbar.navbar-default.coloured_nav {
+    background-color: $navbar-color;
+}
+
 .navbar.navbar-default {
-    background-color : $navbar-color;
+    background-color : transparent;
     border: none;
     border-radius: 0;
+    font-family: $navbarFont;
     height: 70px;
 
     @include phones {
@@ -23,8 +25,8 @@ body {
         }
 
         .navbar-collapse {
-            background-color: $body-background-color;
-            border-color: $navbar-color;
+            background-color: rgba(18, 18, 18, 0.78);
+            border-color: none;
 
             &:hover {
                 border: none;
@@ -60,17 +62,25 @@ a.navbar-brand {
     }
 }
 
+.navbar.navbar-default .navbar-toggle {
+    background: transparent;
+}
+
 .navbar-default .navbar-nav {
     margin-top: 13px;
-    margin-left: 254px;
+    margin-right: 20px;
+
+    li {
+        padding: 0 7px;
+    }
 
     li>a {
-        color: $navbar-links-and-border-color;
-        font-size: 16px;
+        color: white;
+        font-size: 17px;
+        font-family: $navbarFont;
         padding-bottom: 21px;
 
         &:hover {
-            border-bottom: 1px solid $navbar-links-and-border-color;
             color: $navbar-links-hover-state-color;
         }
 
@@ -87,7 +97,33 @@ a.navbar-brand {
     }
 }
 
+.wrapper {
+    background-image: url('../images/background1.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 600px;
+}
 
+.top_banner {
+    margin-top: 250px;
+
+    h1 {
+        color: white;
+        font-family: $topTitleFont;
+        font-size: 55px;
+        text-shadow: 1px 1px 4px black;
+    }
+}
+
+.content_wrapper {
+    font-family: $headerfont;
+    margin-bottom: 76px;
+}
+
+
+// Hide Angular code when loading the page
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
