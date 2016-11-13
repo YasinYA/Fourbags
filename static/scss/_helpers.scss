@@ -1,25 +1,25 @@
 .btn-local {
-    background: $body-background-color;
-    border: $one-pixel-border;
+    // background: $body-background-color;
+    // border: $one-pixel-border;
     color: $item-h2-font-color;
     margin-top: 20px;
 
     &:hover {
-        background: $navbar-color;
+        // background: $navbar-color;
         color: $body-background-color;
     }
 }
 
 .btn-local-second {
-    background: $navbar-color;
-    border: $one-pixel-border;
+    // background: $navbar-color;
+    // border: $one-pixel-border;
     color: $item-h2-font-color;
     margin-top: 20px;
 
     &:hover {
-        background: $body-background-color;
+        // background: $body-background-color;
         color: $item-h2-font-color;
-        border: $one-pixel-border
+        // border: $one-pixel-border
     }
 }
 

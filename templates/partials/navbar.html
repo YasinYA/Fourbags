@@ -1,5 +1,7 @@
 {% load staticfiles %}
-<nav class="navbar navbar-default navbar-fixed-top">
+{% url 'home_view' as home_url %}
+
+<nav {% if request.get_full_path == home_url %}class="navbar navbar-default navbar-fixed-top"{% endif %}class="navbar navbar-default navbar-fixed-top coloured_nav">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -15,13 +17,13 @@
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="{% url 'men_page_view' %}">Men <span class="sr-only">(current)</span></a></li>
         <li><a href="{% url 'women_page_view' %}">Women </a></li>
-        <li><a href="#">Computers </a></li>
-        <li><a href="#">Mobiles </a></li>
-        <li><a href="#">Accessories </a></li>
+        <li><a href="#">Electronics </a></li>
+        <li><a href="#">About </a></li>
+        <li><a href="#">Contact </a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

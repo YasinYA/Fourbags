@@ -7,6 +7,8 @@
     window.item = {{item|json}};
 </script>
 {% endblock head %}
+{% block top_content %}
+{% endblock top_content %}
 {% block content %}
     <div class="container md-margin-bottom" ng-app="FourBags" ng-controller="OrderController">
         <div class="contianer ng-cloak" ng-show="sucessfull === true">
@@ -52,7 +54,7 @@
             </div>
         </div>
         <form name="ordering_form" novalidate ng-submit="sendOrder()">
-            {{csrf_token}}
+            <span class="hide">{{csrf_token}}</span>
             <div class="row sm-margin-bottom">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -131,12 +133,12 @@
                 </div>
                 <div class="col-md-6 text-center">
                     <label class="radio-inline">
-                      <input type="radio" name="cash_on_delivery" value="true" ng-model="customer.cash_on_delivery" ng-click="customer.paypal = false" required> <span class="white-text">Cash on delivery</span>
+                      <input type="radio" name="cash_on_delivery" value="true" ng-model="customer.cash_on_delivery" ng-click="customer.paypal = false" required> <span>Cash on delivery</span>
                     </label>
                 </div>
                 <div class="col-md-6 text-center">
                     <label class="radio-inline">
-                      <input type="radio" name="paypal" value="true" ng-model="customer.paypal" ng-click="customer.cash_on_delivery = false" required> <span class="white-text">Paypal</span>
+                      <input type="radio" name="paypal" value="true" ng-model="customer.paypal" ng-click="customer.cash_on_delivery = false" required> <span>Paypal</span>
                     </label>
                 </div>
             </div>

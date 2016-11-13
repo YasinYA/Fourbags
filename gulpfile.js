@@ -3,6 +3,7 @@
 // buildFilesFoldersRemove => list of files to remove when running final build
 var config = {
 	jsConcatFiles: [
+		'./static/js/helpers.js',
 		'./static/js/app.js',
 		'./static/js/services/ordering_service.js',
 		'./static/js/controllers/item_ordering.js',
