@@ -1,6 +1,4 @@
 .item-wrapper {
-    background: $item-wrapper-color;
-    border: $one-pixel-border;
     border-radius: 10px;
     height: 570px;
     margin-bottom: 20px;
@@ -22,7 +20,6 @@
             text-decoration: none;
 
             h2 {
-                color: $item-h2-font-color;
                 font-size: 18px;
 
                 &:hover {
@@ -34,20 +31,10 @@
         & .item-brand {
             font-size: 16px;
         }
-
-        & .item-desc {
-            color: $item-description-font-color;
-        }
     }
 }
 
 .details {
-    background: $item-wrapper-color;
-    border: $one-pixel-border;
-
-    h3 {
-        color: $item-h2-font-color;
-    }
 
     & .image {
         width: 208px;
@@ -67,7 +54,6 @@
     }
 
     & .sizes {
-        background: $body-background-color;
         color: $item-h2-font-color;
         border: none;
         outline: none;
