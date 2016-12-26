@@ -8,7 +8,7 @@ angular.module('FourBags')
                 if(res.data.success) {
                     $scope.sucessfull = true;
                     $scope.successMessage = "Your Order is Sucessfull";
-                    window.location.href = '/thankyou/' + window.item.id + '/';
+                    window.location.href = '/thankyou/';
                 }
             });
         };

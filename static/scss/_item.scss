@@ -1,6 +1,11 @@
+.well {
+    // background: transparent;
+    box-shadow: 0;
+}
+
 .item-wrapper {
     border-radius: 10px;
-    height: 570px;
+    height: 447px;
     margin-bottom: 20px;
 
 
@@ -31,6 +36,19 @@
         & .item-brand {
             font-size: 16px;
         }
+    }
+
+    .item_price {
+        background: $price-box-bg-color;
+        padding: 10px 7px;
+        color: black;
+        font-weight: bold;
+        position: absolute;
+        left: 69%;
+        top: 4%;
+        width: 26%;
+        border-radius: 0 20px 0 0;
+        box-shadow: 0 0 5px $price-box-shadow-color;
     }
 }
 

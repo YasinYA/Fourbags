@@ -17,7 +17,7 @@ class MenPageView(ListView):
     context_object_name = 'men_items'
 
     def get_queryset(self):
-        return Item.objects.filter(gender="Men")
+        return [item.serialize() for item in  Item.objects.filter(gender="Men")]
 
 
 class WomenPageView(ListView):
@@ -26,7 +26,7 @@ class WomenPageView(ListView):
     context_object_name = 'women_items'
 
     def get_queryset(self):
-        return Item.objects.filter(gender='Women')
+        return [item.serialize() for item in Item.objects.filter(gender='Women')]
 
 
 class DetailPageView(DetailView):
@@ -51,11 +51,11 @@ class ItemOrderView(TemplateView):
 class OrderView(View):
 
     def post(self, request):
-        # get the data from request body cos angular sends the data in the request body
-        # which django doesn't bother to look at
-        # since request body is a byte format convert it to json
-        data = json.loads(request.body.decode('utf-8'))
+        data = request.POST.copy()
         item = data.get('item', '')
+
+        # save the to the session so thankyou page will get it.
+        request.session['item'] = item
 
         # check if quantity is sent with the data and it is greater then 0
         if  data.get('item_quantity') is None and data['item_quantity'] <= 0:
@@ -142,5 +142,8 @@ class OrderThankyouView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderThankyouView, self).get_context_data(**kwargs)
-        context['item'] = Item.objects.get(pk=kwargs['pk']).serialize()
+        item = self.request.session['item']
+
+        context['item'] = item
+
         return context

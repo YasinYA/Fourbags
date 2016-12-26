@@ -12,14 +12,14 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-md-12 white-text">
-                <h1>Thank you for ordering , come agian</h1>
-                <p>You have order this item:</p>
+            <div class="col-md-12">
+                <h1 class="text-center">Thank you for ordering , come agian</h1>
                 <div class="row">
-                    <div class="col-md-6">
-                        <p>{{ item.item_title }}</p>
-                        <p>{{ item.item_brand }}</p>
-                        <p> {{ item.item_price | add_ringgit_sign }}</p>
+                    <div class="col-md-6 col-md-offset-3 md-margin-top text-center">
+                        <p>You have order this item:</p>
+                        <p><strong>Item Name:  </strong>  {{ item.item_title }}</p>
+                        <p><strong>Item Brand: </strong> {{ item.item_brand }}</p>
+                        <p><strong>Item Price: </strong> {{ item.item_price | add_ringgit_sign }}</p>
                         <p> {{ item.description }} </p>
                     </div>
                 </div>

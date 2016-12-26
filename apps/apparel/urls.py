@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/$', views.DetailPageView.as_view(), name="detail_page"),
     url(r'^addtobag/(?P<pk>\d+)/$', views.ItemOrderView.as_view(), name="order_page"),
     url(r'^order/$', views.OrderView.as_view(), name="order"),
-    url(r'^thankyou/(?P<pk>\d+)/$', views.OrderThankyouView.as_view(), name="thankyou_page"),
+    url(r'^thankyou/$', views.OrderThankyouView.as_view(), name="thankyou_page"),
 ]

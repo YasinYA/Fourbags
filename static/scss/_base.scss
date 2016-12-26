@@ -7,6 +7,11 @@ body {
     margin-top: 76px;
 }
 
+.full-screen {
+    width: 100%;
+    padding: 30px;
+}
+
 .navbar.navbar-default.coloured_nav {
     background-color: $navbar-color;
 }
@@ -90,6 +95,10 @@ a.navbar-brand {
                 color: $navbar-links-hover-state-color;
             }
         }
+
+        @include tablets {
+            padding: 8px;
+        }
     }
 
     @include phones {
@@ -120,6 +129,10 @@ a.navbar-brand {
 .content_wrapper {
     font-family: $headerfont;
     margin-bottom: 76px;
+}
+
+.stars {
+    color: $rating-star-color;
 }
 
 
