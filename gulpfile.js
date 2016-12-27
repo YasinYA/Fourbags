@@ -7,6 +7,8 @@ var config = {
 		'./static/js/app.js',
 		'./static/js/services/ordering_service.js',
 		'./static/js/controllers/item_ordering.js',
+		'./static/js/controllers/items.js',
+		'./static/js/directives/item-directive.js'
 	],
 	buildFilesFoldersRemove:[
 		'build/scss/',

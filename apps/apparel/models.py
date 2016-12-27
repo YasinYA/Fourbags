@@ -24,6 +24,7 @@ class Item(models.Model):
     description = models.TextField(blank=False)
     sizes = models.ManyToManyField(Size, related_name="item_size", blank=True)
     category = models.CharField(max_length=200, default="Category", blank=False)
+    sub_category = models.CharField(max_length=50, blank=False, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -40,6 +41,8 @@ class Item(models.Model):
             "description": self.description,
             "sizes": [s.sizes for s in self.sizes.all()],
             "category": self.category,
+            "sub_category": self.sub_category,
+            "item_type": self.item_type,
             "item_images": [image.image.url for image in self.images.all()],
         }
 

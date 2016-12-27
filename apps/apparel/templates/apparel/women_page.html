@@ -1,27 +1,163 @@
 {% extends "apparel/apparel_base.html" %}
+{% load staticfiles argonauts %}
+{% block head %}
+    {{ block.super }}
+    <script>
+        window.items = {{women_items|json}};
+    </script>
+{% endblock head %}
 {% block top_content %}
 {% endblock top_content %}
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row" ng-controller="ItemController">
+        <div class="col-md-12 md-margin-bottom">
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" ng-click="filterBySearchTerm('Cloth')">Cloth</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" ng-click="filterBySearchTerm('Shoes')">Shoes</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" ng-click="filterBySearchTerm('Accessories')">Accessories</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 col-sm-8 col-xs-12 pull-right">
             <div class="row">
-            {% for item in women_items %}
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-12 col-xs-12" ng-repeat="item in items|filter: searched">
                     <div class="item-wrapper well">
-                        <div class="item-image-wrapper text-center">
-                        {% for item_image in item.images.all %}
-                            <img src="{{item_image.image.url}}" alt="{{item.item_title}}" class="item-image img-responsive img-thumbnail">
-                        {% endfor %}
+                        <div class="item-image-wrapper text-center" ng-repeat="image in item.item_images">
+                            <img src="{$ image $}" alt="{$ item.item_title $}" class="item-image img-responsive img-thumbnail">
                         </div>
                         <div class="item-info">
-                            <a class="item-title text-center" href="{% url 'detail_page' item.pk %}"><h2>{{item.item_title}}</h2></a>
-                            <h3 class="item-brand text-center">{{item.item_brand}}</h3>
-                            <p class="item-desc">{{item.description|truncatewords:40}}</p>
+                            <a class="item-title text-center" href="/{$ item.id $}"><h2>{$ item.item_title $}</h2></a>
+                            <h3 class="item-brand text-center">{$ item.item_brand $}</h3>
+                            <p class="item_price">{$ item.item_price|currency:'RM' $}</p>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-4 pull-left">
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>Search </h3>
+                    <input type="text" name="search" class="form-control" ng-model="searched" placeholder="Search">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>Filter By </h3>
+                    <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                      Price
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <form name="filterByPrice">
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="price" ng-model="price_300" value="300" ng-click="filterBySearchTerm(price_300)">
+                                                RM 300
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="price" ng-model="price_200" value="200" ng-click="filterBySearchTerm(price_200)">
+                                                RM 200
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="price" ng-model="price_100" value="100" ng-click="filterBySearchTerm(price_100)">
+                                                RM 100
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                      Brand
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="brand" ng-model="zalora" value="ZALORA" ng-click="filterBySearchTerm(zalora)">
+                                        ZALORA
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="brand" ng-model="topman" value="TOPMAN" ng-click="filterBySearchTerm(topman)">
+                                        TOPMAN
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="brand" ng-model="lentina_brogue_shoes" value="Lentina Brogue Shoes" ng-click="filterBySearchTerm(lentina_brogue_shoes)">
+                                        Lentina Brogue Shoes
+                                    </label>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion3" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                      Rate
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="rate" ng-model="ten_stars" value="10">
+                                        10 <i class="fa fa-star stars" aria-hidden="true"></i>
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="rate" ng-model="five_stars" value="5">
+                                        5 <i class="fa fa-star stars" aria-hidden="true"></i>
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="rate" ng-model="two_stars" value="2">
+                                        2 <i class="fa fa-star stars" aria-hidden="true"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-{% endblock  %}
+
+{% endblock %}
